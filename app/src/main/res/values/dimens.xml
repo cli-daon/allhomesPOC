@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="portrait_text_size">15sp</dimen>
+    <dimen name="landscape_text_size">24sp</dimen>
+    <dimen name="portrait_first_image_width">160dp</dimen>
+    <dimen name="landscape_first_image_width">250dp</dimen>
+    <dimen name="portrait_second_image_width">160dp</dimen>
+    <dimen name="landscape_second_image_width">250dp</dimen>
+    <dimen name="portrait_agent_icon_width">100dp</dimen>
+    <dimen name="landscape_agent_icon_width">160dp</dimen>
+
+</resources>

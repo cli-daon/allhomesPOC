@@ -5,7 +5,7 @@ import android.util.Log;
 import com.allhomes.poc.BuildConfig;
 
 /**
- * Created by cli on 12/01/2017.
+ * Created by cli on 25/02/2018.
  */
 
 public class LogUtil

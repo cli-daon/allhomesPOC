@@ -57,10 +57,11 @@ public class LeftFragment extends Fragment {
     }
 
     //Custom RecyclerViewAdaptor for left fragment
-    class RecyclerViewAdaptor extends RecyclerView.Adapter<RecyclerViewAdaptor.ViewHolder>{
+    class RecyclerViewAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            RecyclerView.ViewHolder viewHolder=null;
             View view=null;
             switch (viewType){
                 case 1:
@@ -70,37 +71,38 @@ public class LeftFragment extends Fragment {
                     view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_property_info_standard, parent, false);
                     break;
             }
-            return new ViewHolder(view);
+            return new CustomViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(final RecyclerViewAdaptor.ViewHolder holder, int position) {
+        public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
             Property property=properties.get(position);
-            holder.priceTV.setText(property.getDisplayPrice());
-            holder.bedroomsTV.setText(property.getBedrooms()+" "+getString(R.string.bed));
-            holder.bathroomsTV.setText(property.getBathrooms()+" "+getString(R.string.bath));
-            holder.carspacesTV.setText(property.getCarspaces()+" "+getString(R.string.car));
-            holder.addressTV.setText(property.getDisplayableAddress());
+            CustomViewHolder viewHolder=(CustomViewHolder)holder;
+            viewHolder.priceTV.setText(property.getDisplayPrice());
+            viewHolder.bedroomsTV.setText(property.getBedrooms()+" "+getString(R.string.bed));
+            viewHolder.bathroomsTV.setText(property.getBathrooms()+" "+getString(R.string.bath));
+            viewHolder.carspacesTV.setText(property.getCarspaces()+" "+getString(R.string.car));
+            viewHolder.addressTV.setText(property.getDisplayableAddress());
             if(property.getRetinaDisplayThumbUrl()!=null){
                 Glide.with(LeftFragment.this)
                         .load(property.getRetinaDisplayThumbUrl())
                         .fitCenter()
                         .placeholder(R.color.colorAccent)
-                        .into(holder.firstImage);
+                        .into(viewHolder.firstImage);
             }
-            if(holder.secondImage!=null&&property.getSecondRetinaDisplayThumbUrl()!=null){
+            if(viewHolder.secondImage!=null&&property.getSecondRetinaDisplayThumbUrl()!=null){
                 Glide.with(LeftFragment.this)
                         .load(property.getSecondRetinaDisplayThumbUrl())
                         .fitCenter()
                         .placeholder(R.color.colorAccent)
-                        .into(holder.secondImage);
+                        .into(viewHolder.secondImage);
             }
             if(property.getAgencyLogoUrl()!=null){
                 Glide.with(LeftFragment.this)
                         .load(property.getAgencyLogoUrl())
                         .fitCenter()
                         .placeholder(R.color.colorAccent)
-                        .into(holder.agentIcon);
+                        .into(viewHolder.agentIcon);
             }
         }
 
@@ -114,7 +116,7 @@ public class LeftFragment extends Fragment {
             return properties.get(position).getIsElite();
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder {
+        public class CustomViewHolder extends RecyclerView.ViewHolder {
             public final TextView priceTV;
             public final TextView bedroomsTV;
             public final TextView bathroomsTV;
@@ -125,7 +127,7 @@ public class LeftFragment extends Fragment {
             public final ImageView agentIcon;
 
 
-            public ViewHolder(View view) {
+            public CustomViewHolder(View view) {
                 super(view);
                 priceTV=view.findViewById(R.id.price);
                 bedroomsTV=view.findViewById(R.id.bedrooms);

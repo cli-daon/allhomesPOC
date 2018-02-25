@@ -55,23 +55,24 @@ public class RightFragment extends Fragment {
     }
 
     //Custom RecyclerViewAdaptor for right fragment
-     class RecyclerViewAdaptor extends RecyclerView.Adapter<RecyclerViewAdaptor.ViewHolder>{
+     class RecyclerViewAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_property_info_text, parent, false);
-            return new ViewHolder(view);
+            return new CustomViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder holder, final int position) {
+        public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
             final Property property=properties.get(position);
             //Rest the adId textView
-            holder.adIdTv.setText(getString(R.string.instruction));
-            holder.view.setOnClickListener(new View.OnClickListener() {
+            final CustomViewHolder viewHolder=(CustomViewHolder)holder;
+            viewHolder.adIdTv.setText(getString(R.string.instruction));
+            viewHolder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    holder.adIdTv.setText(getString(R.string.ad_id)+" "+property.getAdId());
+                    viewHolder.adIdTv.setText(getString(R.string.ad_id)+" "+property.getAdId());
                 }
             });
 
@@ -82,11 +83,11 @@ public class RightFragment extends Fragment {
             return properties.size();
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder {
+        public class CustomViewHolder extends RecyclerView.ViewHolder {
             public final TextView adIdTv;
             public final View view;
 
-            public ViewHolder(View view) {
+            public CustomViewHolder(View view) {
                 super(view);
                 this.view=view;
                 adIdTv = view.findViewById(R.id.adId);

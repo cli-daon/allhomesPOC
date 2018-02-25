@@ -1,6 +1,8 @@
 package com.allhomes.poc.activities;
 
 import android.app.ProgressDialog;
+import android.content.res.Configuration;
+import android.os.Parcelable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.content.Intent;
@@ -39,6 +41,7 @@ public class ResultActivity extends AppCompatActivity {
     private List<Fragment> fragments;
     private List<String> tabNames;
     private ProgressDialog loadingDialog =null;
+    private List<Property> properties;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +49,26 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
         initView();
-        initializeLoadingDialog();
-        getServerData();
+        //No need to reload data if screen size is changed.
+        if(savedInstanceState!=null){
+            properties=savedInstanceState.getParcelableArrayList("properties");
+            initData(properties);
+            initListener();
+        }
+        else{
+            initializeLoadingDialog();
+            getServerData();
+        }
         LogUtil.d(TAG, "Quiting onCreate...");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        LogUtil.d(TAG, "Entering onSaveInstanceState...");
+        //Save the property data
+        outState.putParcelableArrayList("properties",  (ArrayList<? extends Parcelable>) properties);
+        super.onSaveInstanceState(outState);
+        LogUtil.d(TAG, "Quiting onSaveInstanceState...");
     }
 
     private void getServerData() {
@@ -64,7 +84,8 @@ public class ResultActivity extends AppCompatActivity {
             public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
                 SearchResponse searchResponse=response.body();
                 ListingResults listingResults =searchResponse.getListingResults();
-                initData(listingResults.getListings());
+                properties=listingResults.getListings();
+                initData(properties);
                 initListener();
                 loadingDialog.dismiss();
             }
@@ -80,7 +101,7 @@ public class ResultActivity extends AppCompatActivity {
             }
         });
         loadingDialog.show();
-        LogUtil.d(TAG, "Entering getServerData...");
+        LogUtil.d(TAG, "Quiting getServerData...");
     }
 
     private void initView() {
@@ -92,10 +113,10 @@ public class ResultActivity extends AppCompatActivity {
 
     private void initializeLoadingDialog()
     {
-        LogUtil.d(TAG,"Entering initializeLoadingDiaLogUtil...");
+        LogUtil.d(TAG,"Entering initializeLoadingDialog...");
         loadingDialog =new ProgressDialog(this, R.style.CustomDialog);
         loadingDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        LogUtil.d(TAG,"Quiting initializeLoadingDiaLogUtil...");
+        LogUtil.d(TAG,"Quiting initializeLoadingDialog...");
     }
 
     private void initData(List<Property> properties){
