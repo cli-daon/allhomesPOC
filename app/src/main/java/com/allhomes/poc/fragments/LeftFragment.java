@@ -74,8 +74,10 @@ public class LeftFragment extends Fragment {
             return new CustomViewHolder(view);
         }
 
+        //Nee to rewrite this method to resolve data misloading because of the reuse of view holder.
         @Override
         public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+
             Property property=properties.get(position);
             CustomViewHolder viewHolder=(CustomViewHolder)holder;
             viewHolder.priceTV.setText(property.getDisplayPrice());
