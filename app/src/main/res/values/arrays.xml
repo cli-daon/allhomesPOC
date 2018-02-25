@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="modes">
+        <item>Buy</item>
+    </string-array>
+    <string-array name="states">
+        <item>NSW</item>
+    </string-array>
+    <string-array name="suburbs">
+        <item>Bondi</item>
+    </string-array>
+    <string-array name="postcodes">
+        <item>2026</item>
+    </string-array>
+</resources>

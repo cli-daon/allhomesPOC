@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">AllhomesPOC</string>
+    <string name="search">Search</string>
+    <string name="mode">Mode:</string>
+    <string name="state">State:</string>
+    <string name="suburb">Suburb:</string>
+    <string name="postcode">Postcode:</string>
+    <string name="base_url">https://rest.domain.com.au/</string>
+    <string name="left_tab">Left</string>
+    <string name="right_tab">Right</string>
+    <string name="retrieve_data_failure">Cannot retrieve data!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bed">bed,</string>
+    <string name="bath">bath,</string>
+    <string name="car">car</string>
+    <string name="ad_id">Ad ID:</string>
+    <string name="instruction">Click to view Ad ID</string>
+</resources>
